@@ -3,19 +3,118 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+	--background: #fbfcfd;
+	--foreground: #fff;
+	--text: #393939;
+	--primary: 222.2 47.4% 11.2%;
+	--primary-foreground: 210 40% 98%;
+	--secondary: 210 40% 96.1%;
+	--secondary-foreground: 222.2 47.4% 11.2%;
+
+	--muted: 210 40% 96.1%;
+	--muted-foreground: 215.4 16.3% 46.9%;
+	--border: #dfe3e6;
+	--ring: 215 20.2% 65.1%;
+
+	--card: 0 0% 100%;
+	--card-foreground: 222.2 47.4% 11.2%;
+	--popover: #f8f8ff;
+	--popover-foreground: 222.2 47.4% 11.2%;
+	--input: 214.3 31.8% 91.4%;
+	--toggle: 214.3 31.8% 91.4%;
+	--toggle-foreground: 222.2 47.4% 11.2%;
+
+	--textField: #f2f2f2 --textField-foreground: theme('textColor.text') --accent: 210 40% 96.1%;
+	--accent-foreground: 222.2 47.4% 11.2%;
+	--destructive: 0 100% 50%;
+	--destructive-foreground: 210 40% 98%;
+
+	--sidebar-width: 16rem;
+	--sidebar-icon: 3rem;
+	--laudo-tools: 16rem;
+	--sidebar-background: 0 0% 98%;
+	--sidebar-foreground: 240 5.3% 26.1%;
+	--sidebar-primary: 240 5.9% 10%;
+	--sidebar-primary-foreground: 0 0% 98%;
+	--sidebar-accent: 240 4.8% 95.9%;
+	--sidebar-accent-foreground: 240 5.9% 10%;
+	--sidebar-border: theme(borderColor.border);
+	--sidebar-ring: 217.2 91.2% 59.8%;
+
+	--radius: 0.5rem;
+
+	--shadow-inset: inset 0 0 6px 0px #00000078;
+}
+@media (prefers-color-scheme: dark) {
+	:root {
+		--background: #0c0d0e;
+		--foreground: #151718;
+		--text: #d9d9d9;
+		--card: 222.2 84% 4.9%;
+		--card-foreground: 210 40% 98%;
+
+		--popover: #151718;
+		--popover-foreground: 210 40% 98%;
+
+		--textField: #000;
+		--textField-foreground: theme('textColor.text');
+
+		--primary: 210 40% 98%;
+		--primary-foreground: 222.2 47.4% 11.2%;
+
+		--secondary: 217.2 32.6% 17.5%;
+		--secondary-foreground: 210 40% 98%;
+
+		--muted: 217.2 20% 17.5%;
+		--muted-foreground: 215 20.2% 65.1%;
+
+		--accent: 217.2 32.6% 17.5%;
+		--accent-foreground: 210 40% 98%;
+
+		--destructive: 0 62.8% 30.6%;
+		--destructive-foreground: 210 40% 98%;
+
+		--border: #313538;
+
+		--input: 217.2 32.6% 17.5%;
+
+		--toggle: 298.13 26.67% 23.53% / 50%;
+		--toggle-foreground: 300 20% 70%;
+
+		--ring: 212.7 26.8% 83.9%;
+
+		--sidebar-background: 240 5.9% 10%;
+		--sidebar-foreground: 240 4.8% 95.9%;
+		--sidebar-primary: 224.3 76.3% 48%;
+		--sidebar-primary-foreground: 0 0% 100%;
+		--sidebar-accent: 240 3.7% 15.9%;
+		--sidebar-accent-foreground: 240 4.8% 95.9%;
+		--sidebar-border: theme('borderColor.border');
+		--sidebar-ring: 217.2 91.2% 59.8%;
+	}
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+::selection {
+	background-color: theme('backgroundColor.primary.DEFAULT');
+	color: theme('textColor.foreground');
+}
+input::selection {
+	background-color: theme('backgroundColor.primary.DEFAULT');
+	color: theme('textColor.foreground');
+}
+/* Estilo para evitar mudança de cor de fundo quando o campo é autopreenchido */
+input:-webkit-autofill {
+	background-color: transparent !important;
+	transition: background-color 5000s ease-in-out 0s !important;
+	-webkit-box-shadow: 0 0 0px 1000px transparent inset !important;
+}
+/* Adicionalmente, para garantir que a cor da fonte seja herdada do estilo original */
+input:-webkit-autofill::first-line {
+	color: theme('textColor.text') !important;
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+	color: var(--foreground);
+	background: var(--background);
+	font-family: Arial, Helvetica, sans-serif;
 }
