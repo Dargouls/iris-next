@@ -3,7 +3,7 @@
 import * as React from 'react';
 
 import { Drawer, DrawerContent, DrawerHeader, DrawerTitle } from '@/components/ui/drawer';
-import { ResultIrisProps } from '@/interfaces/results';
+import { Relatorio } from '@/interfaces/results';
 import { api } from '@/lib/axios';
 import toast from 'react-hot-toast';
 import Hidden from '../ui/hidden';
@@ -15,7 +15,7 @@ export function UploadImages() {
 	const [form, setForm] = React.useState(1);
 	const [files, setFiles] = React.useState<File[]>([]);
 	const [isLoading, setIsLoading] = React.useState(false);
-	const [results, setResults] = React.useState<ResultIrisProps>();
+	const [results, setResults] = React.useState<Relatorio>();
 
 	const handleSetImage = (files: File[]) => {
 		setFiles(files);
@@ -33,6 +33,7 @@ export function UploadImages() {
 	};
 	const returnPage = () => {
 		onOpenChange(false);
+		setFiles([]);
 		setTimeout(() => {
 			setForm(1);
 			onOpenChange(true);
@@ -84,7 +85,7 @@ export function UploadImages() {
 				</DrawerContent>
 			</Drawer>
 
-			<div className='bg-foreground border-border w-full border lg:hidden'>
+			<div className='bg-foreground border-border w-full rounded-lg border lg:hidden'>
 				{form === 1 ? (
 					<>
 						<Form1

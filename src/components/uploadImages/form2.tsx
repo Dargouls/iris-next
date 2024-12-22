@@ -1,4 +1,4 @@
-import { ResultIrisProps } from '@/interfaces/results';
+import { Relatorio } from '@/interfaces/results';
 import { ArrowLeft } from 'lucide-react';
 import Button from '../button/button';
 import CircularProgress from '../circularProgress/circularProgress';
@@ -8,7 +8,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../ui/
 
 interface Form2Props {
 	handleReturn: () => void;
-	results: ResultIrisProps | undefined;
+	results: Relatorio | undefined;
 }
 
 export default function Form2({ handleReturn, results, ...props }: Form2Props) {
@@ -18,12 +18,14 @@ export default function Form2({ handleReturn, results, ...props }: Form2Props) {
 				<CircularProgress size={40} />
 			</div>
 		);
-	const { informacoes_imagem, imagem_processada, interpretacao, medidas_estruturais } =
-		results as ResultIrisProps;
+
+	const { imagem_processada, relatorio } = results;
+
+	const { interpretacao, medidas_estruturais, analise_collarette, analise_setorial } = results.relatorio;
 
 	return (
 		<>
-			<div className='flex flex-col p-4 lg:h-screen'>
+			<div className='flex flex-col p-4 lg:h-screen lg:w-[50vw]'>
 				<TooltipProvider>
 					<Tooltip>
 						<TooltipTrigger asChild>
@@ -35,50 +37,52 @@ export default function Form2({ handleReturn, results, ...props }: Form2Props) {
 					</Tooltip>
 				</TooltipProvider>
 				{imagem_processada && (
-					<TooltipProvider>
-						<Tooltip>
-							<TooltipTrigger asChild>
-								<img src={`data:image/jpeg;base64,${imagem_processada}`} alt='Uploaded Image' width={200} />
-							</TooltipTrigger>
-							<TooltipContent>{informacoes_imagem?.dimensoes}</TooltipContent>
-						</Tooltip>
-					</TooltipProvider>
+					<img src={`data:image/jpeg;base64,${imagem_processada}`} alt='Uploaded Image' width={200} />
 				)}
-				<Accordion className='w-full' defaultValue={['1', '2']} type='multiple'>
+
+				<h4 className='mt-2 text-2xl font-bold'>Análise iridológica detalhada</h4>
+				<Accordion className='w-full' defaultValue={['1', '2', '3']} type='multiple'>
 					<AccordionItem value='1'>
 						<AccordionTrigger className='font-bold'>Interpretação</AccordionTrigger>
 						<AccordionContent>
-							<li>{interpretacao?.pupila}</li>
+							<li>Pupila: {interpretacao?.pupila}</li>
 							<li>
-								<span>{interpretacao?.iris}</span>
+								<span>Íris: {interpretacao?.iris}</span>
 							</li>
 							<li>
-								<span>{interpretacao?.collarette}</span>
+								<span>Colarette: {interpretacao?.collarette}</span>
+							</li>
+							<li>
+								<span>Estrutura: {interpretacao?.estrutura}</span>
+							</li>
+							<li>
+								<span>Forma pupilar: {interpretacao?.forma_pupilar}</span>
+							</li>
+							<li>
+								<span>Textura: {interpretacao?.textura}</span>
 							</li>
 						</AccordionContent>
 					</AccordionItem>
 
 					<AccordionItem value='2'>
-						<AccordionTrigger className='font-bold'>Medidas estruturais</AccordionTrigger>
+						<AccordionTrigger className='font-bold'>Análise Colarette</AccordionTrigger>
 						<AccordionContent className='space-y-1'>
-							<p>{medidas_estruturais?.pupila.tamanho_relativo}</p>
-							<p>{medidas_estruturais?.pupila.forma}</p>
+							<p>Circularidade: {analise_collarette?.circularidade}</p>
+							<p>Regularidade: {analise_collarette?.regularidade}</p>
+						</AccordionContent>
+					</AccordionItem>
 
-							<Separator />
-							<p>
-								<span>{medidas_estruturais?.iris.textura}</span>
-							</p>
-							<p>
-								<span>{medidas_estruturais?.iris.densidade}</span>
-							</p>
-							<Separator />
-
-							<p>
-								<span>{medidas_estruturais?.collarette.circularidade}</span>
-							</p>
-							<p>
-								<span>{medidas_estruturais?.collarette.regularidade}</span>
-							</p>
+					<AccordionItem value='3'>
+						<AccordionTrigger className='font-bold'>Análise setorial</AccordionTrigger>
+						<AccordionContent className='space-y-1'>
+							{analise_setorial?.map((item, index) => (
+								<div key={index}>
+									<p>Setor: {item.setor}</p>
+									<p>Contraste: {item.contraste}</p>
+									<p>Homogeneidade: {item.homogeneidade}</p>
+									<Separator />
+								</div>
+							))}
 						</AccordionContent>
 					</AccordionItem>
 				</Accordion>

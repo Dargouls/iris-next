@@ -1,40 +1,45 @@
-export interface ResultIrisProps {
-	informacoes_imagem: InformacoesImagem;
-	medidas_estruturais: MedidasEstruturais;
-	interpretacao: Interpretacao;
-	imagem_processada: any;
-}
-
-export interface InformacoesImagem {
-	formato: string;
-	dimensoes: string;
+export interface Relatorio {
+	imagem_processada: Base64URLString;
+	relatorio: {
+		medidas_estruturais: MedidasEstruturais;
+		analise_setorial: AnaliseSetorial[];
+		analise_collarette: AnaliseCollarette;
+		interpretacao: Interpretacao;
+	};
 }
 
 export interface MedidasEstruturais {
 	pupila: Pupila;
 	iris: Iris;
-	collarette: Collarette;
 }
 
 export interface Pupila {
-	raio: string;
-	tamanho_relativo: string;
-	forma: string;
+	centro: number[];
+	raio: number;
 }
 
 export interface Iris {
-	raio: string;
-	densidade: string;
-	textura: string;
+	centro: number[];
+	raio: number;
 }
 
-export interface Collarette {
-	regularidade: string;
-	circularidade: string;
+export interface AnaliseSetorial {
+	setor: number;
+	contraste: number;
+	homogeneidade: number;
+	observacoes: string[];
+}
+
+export interface AnaliseCollarette {
+	regularidade: number;
+	circularidade: number;
 }
 
 export interface Interpretacao {
 	pupila: string;
+	forma_pupilar: string;
 	iris: string;
+	textura: string;
 	collarette: string;
+	estrutura: string;
 }
