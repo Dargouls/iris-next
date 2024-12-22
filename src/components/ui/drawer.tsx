@@ -38,10 +38,13 @@ const DrawerContent = React.forwardRef<
 	<DrawerPortal>
 		<DrawerPrimitive.Content
 			ref={ref}
-			className={cn('fixed right-0 top-0 z-50 flex h-full w-max min-w-[500px] items-center', className)}
+			className={cn(
+				'fixed right-0 top-0 z-50 flex h-full w-0 items-center lg:w-max lg:min-w-[500px]',
+				className
+			)}
 			{...props}
 		>
-			<ScrollArea className='bg-background border-border h-max min-h-40 w-full rounded-l-[10px] border-y border-l'>
+			<ScrollArea className='border-border bg-background h-max min-h-40 w-full rounded-l-[10px] border-y border-l'>
 				{/* <div className='bg-muted mx-auto mt-4 h-2 w-[100px] rounded-full' /> */}
 				{children}
 			</ScrollArea>

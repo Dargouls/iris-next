@@ -26,6 +26,10 @@ export function UploadImages() {
 	const handleSetImage = (files: File[]) => {
 		setFiles(files);
 	};
+	const handleRemoveFile = (file: File) => {
+		setFiles((prev) => prev.filter((f) => f !== file));
+	};
+
 	const handleTogglePage = () => {
 		onOpenChange(false);
 		setTimeout(() => {
@@ -61,7 +65,7 @@ export function UploadImages() {
 
 	return (
 		<Drawer open={open} onOpenChange={onOpenChange} direction='right'>
-			<DrawerContent>
+			<DrawerContent className='bg-transparent'>
 				<Hidden>
 					<DrawerHeader>
 						<DrawerTitle></DrawerTitle>
@@ -69,7 +73,13 @@ export function UploadImages() {
 				</Hidden>
 				{form === 1 ? (
 					<>
-						<Form1 analise={analise} files={files} handleSetImage={handleSetImage} isLoading={isLoading} />
+						<Form1
+							analise={analise}
+							files={files}
+							handleSetImage={handleSetImage}
+							handleRemoveFile={handleRemoveFile} // Pass the new handler
+							isLoading={isLoading}
+						/>
 					</>
 				) : (
 					<Form2 results={results} handleReturn={returnPage} />
@@ -83,10 +93,11 @@ interface Form1Props {
 	analise: () => void;
 	files: File[];
 	handleSetImage: (files: File[]) => void;
+	handleRemoveFile: (file: File) => void; // Add the new prop
 	isLoading: boolean;
 }
 
-const Form1 = ({ analise, files, handleSetImage, isLoading }: Form1Props) => {
+const Form1 = ({ analise, files, handleSetImage, handleRemoveFile, isLoading }: Form1Props) => {
 	return (
 		<>
 			<Hidden>
@@ -95,7 +106,12 @@ const Form1 = ({ analise, files, handleSetImage, isLoading }: Form1Props) => {
 				</DrawerHeader>
 			</Hidden>
 			<div className='flex flex-col items-center gap-4 p-4'>
-				<Dropzone maxFiles={1} maxSize={5 * 1024 * 1024} onFilesAdded={handleSetImage} />
+				<Dropzone
+					maxFiles={1}
+					maxSize={5 * 1024 * 1024}
+					onFilesAdded={handleSetImage}
+					onFileRemoved={handleRemoveFile} // Pass the handler to Dropzone
+				/>
 				<Button onClick={() => analise()} disabled={files?.length === 0} loading={isLoading}>
 					<Sparkles size={16} />
 					Iniciar análise

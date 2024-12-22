@@ -100,6 +100,9 @@ export default {
 			boxShadow: {
 				inset: 'var(--shadow-inset)',
 			},
+			fontFamily: {
+				sen: 'var(--font-sen)',
+			},
 			animation: {
 				vush: 'spin 0.5s cubic-bezier(0.175, 0.885, 0.320, 1.275) both !important',
 				'accordion-down': 'accordion-down 0.2s ease-out',
@@ -109,5 +112,5 @@ export default {
 			},
 		},
 	},
-	plugins: [],
+	plugins: [require('tailwindcss-animate')],
 } satisfies Config;
