@@ -6,8 +6,8 @@ import { Eye, UploadIcon } from 'lucide-react';
 export default function Home() {
 	return (
 		<>
-			<div className='flex min-h-screen flex-col items-start justify-center gap-16 pl-4 md:pl-16'>
-				<main className='row-start-2 flex items-center gap-8 sm:items-start'>
+			<div className='flex min-h-screen flex-col items-start justify-center gap-16 p-4 lg:pl-16'>
+				<main className='row-start-2 flex w-full flex-col items-center gap-8 sm:justify-start lg:w-max'>
 					<div className='space-y-6'>
 						<h1 className='mb-8 text-5xl font-light'>Análise ocular rápida</h1>
 						<div className='overflow-hidden p-6 transition-all hover:shadow-lg'>
